@@ -1,6 +1,4 @@
-import pygame as pg
-
-def ins(str, ch, pos):
+def ins(str, ch, pos): #insert character into string at position pos
     
     if not (ch=='a' or ch=='e' or ch=='i' or ch=='o' or ch=='u'):
         print('This character is not a vowel!')
@@ -21,7 +19,7 @@ def ins(str, ch, pos):
     
     return(''.join(a)+' 1')
 
-def det(str, pos):
+def det(str, pos): #remove character as position pos in string str
     
     ch=str[pos]
     
@@ -44,7 +42,7 @@ def det(str, pos):
         return(str+' 0')
 
 
-def clear():
+def clear(): #clear the visible output history
     
     for i in range(0,100): print('\n')
 
@@ -78,8 +76,8 @@ for i in range(0,N):
     
     tries=0
     
-    inp=levels[i][0]
-    correct=levels[i][1]
+    inp=levels[i][0] #data that the user is editing
+    correct=levels[i][1] #correct answer
     
     while not inp==correct:
         clear()
@@ -87,7 +85,7 @@ for i in range(0,N):
         print('Turn '+str(tries+1))
         print('Word Progress: '+inp)
         
-        attempt,pos=input().split()
+        attempt,pos=input().split() #format is 'o 1' or '- 1'
         pos=int(pos)
         pos=max(0,min(int(len(inp)),pos))
         tr=0
