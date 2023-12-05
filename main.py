@@ -82,7 +82,7 @@ for i in range(0,N):
     correct=levels[i][1]
     
     while not inp==correct:
-        
+        clear()
         print("STAGE "+ str(i+1))
         print('Turn '+str(tries+1))
         print('Word Progress: '+inp)
