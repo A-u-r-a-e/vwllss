@@ -1,7 +1,5 @@
 import pygame as pg
 
-
-
 pg.init()
 
 WX=1280
@@ -73,8 +71,22 @@ def det(str, pos): #remove character as position pos in string str
         print('The character at the place you selected was not a vowel!')
         return(str+' 0')
 
+def spacer(): #wait until space pressed
+    rep=True
+    while rep:
+        closeable()
+        keys = pg.key.get_pressed()
+        if keys[pg.K_SPACE]:
+            rep=False
 
+def overall(x): #display text
+    txtout=pg.font.SysFont('courier',25).render('Overall turns taken: '+str(x), True, (255,255,255))
+    screen.blit(txtout,(10,10))
 
+def sout(txt,size,loc): #display text
+    txtout=pg.font.SysFont('courier', size).render(txt, True, (255,255,255))
+    txtout_rect=txtout.get_rect(center=loc)
+    screen.blit(txtout,txtout_rect)
 #PYGAME EDITION
 
 
@@ -94,69 +106,52 @@ def closeable():
 
 clear()
 rep=True
-    
-while rep:
-    clear()
-    closeable()
-    sscreen=pg.font.SysFont('courier', 200).render("VWLLSS", True, (255,255,255))
-    sscreen_rect=sscreen.get_rect(center=(WX/2,WY/2))
-    cont=pg.font.SysFont('courier',25).render("press space to continue", True, (255,255,255))
-    cont_rect=cont.get_rect(center=(WX/2, 10))
-    screen.blit(cont, cont_rect)
-    screen.blit(sscreen, sscreen_rect)
-        
-    keys = pg.key.get_pressed()
-    pg.display.flip()
-    if keys[pg.K_SPACE]:
-        rep=False
 
-    
+sout("VWLLSS",200,(WX/2,WY/2))
+sout("press space to continue",25,(WX/2,10))
+pg.display.flip()
+spacer()
+
+
 score=0 #overall
 tries=0 #for select stage
-    
+
 correct=''
 inp=''
-    
+
 for i in range(0,N):
-        
+    
     clear()
-        
+    
     tries=0
-        
+    
     inp=levels[i][0] #data that the user is editing
     correct=levels[i][1] #correct answer
-    stage=pg.font.SysFont('courier', 200).render("stage "+ str(i+1), True, (255,255,255))
-    stage_rect=stage.get_rect(center=(WX/2,WY/2-100))
-    screen.blit(stage, stage_rect)
+    sout("stage "+str(i+1),200,(WX/2,WY/2))
     pg.display.flip()
     pg.time.wait(1000)
     while not inp==correct:
         clear()
-            
+        
         pg.display.flip()
-        turn=pg.font.SysFont('courier', 200).render('turn '+str(tries+1), True, (255,255,255))
-        turn_rect=turn.get_rect(center=(WX/2,WY/2))
-        screen.blit(turn, turn_rect)
+        sout('turn '+str(tries+1), 200, (WX/2,WY/2))
         pg.display.flip()
         pg.time.wait(1000)
-            
-            
+        
+        
         clear()
-        turnc=pg.font.SysFont('courier',25).render("Overall turns taken: "+str(score+tries),True,(255,255,255))
-        screen.blit(turnc, (10,10))
-        dis=font.render(inp, True, (255,255,255))
-        dis_rect=dis.get_rect(center=(WX/2,WY/2-50))
-        screen.blit(dis, dis_rect)
+        overall((score+tries))
+        sout(inp,100,(WX/2,WY/2-50))
         pg.display.flip()
-            
+        
         a=False#attempt input?
         p=False#pos input?
-            
+        
         attempt=''
         pos=''
-            
+        
         prg=''
-        while not a:
+        while not a:#get edit typep
             closeable()
             keys = pg.key.get_pressed()
             if keys[pg.K_a]:
@@ -178,38 +173,26 @@ for i in range(0,N):
                 attempt='-'
                 a=True
         clear()
-        turnc=pg.font.SysFont('courier',25).render("Overall turns taken: "+str(score+tries),True,(255,255,255))
-        screen.blit(turnc, (10,10))
-        dis=font.render(inp, True, (255,255,255))
-        dis_rect=dis.get_rect(center=(WX/2,WY/2-50))
-        screen.blit(dis, dis_rect)
+        overall((score+tries))
+        sout(inp,100,(WX/2,WY/2-50))
         prg+=attempt
-        sprg=font.render(prg, True, (255,255,255))
-        sprg_rect=sprg.get_rect(center=(WX/2,WY/2+50))
-        screen.blit(sprg, sprg_rect)
+        sout(prg,100,(WX/2,WY/2+50))
         pg.display.flip()
-            
+        
 
-            
+        
         t0,t1,t2,t3,t4,t5,t6,t7,t8,t9,td=0,0,0,0,0,0,0,0,0,0,0
-        while not p:
+        while not p:#get edit pos
             closeable()
             clear()
-            dis=font.render(inp, True, (255,255,255))
-            dis_rect=dis.get_rect(center=(WX/2,WY/2-50))
-            screen.blit(dis, dis_rect)
-                
-                
-            sprg=font.render(prg+' '+pos, True, (255,255,255))
-            sprg_rect=sprg.get_rect(center=(WX/2,WY/2+50))
-            screen.blit(sprg, sprg_rect)
-                
-            turnc=pg.font.SysFont('courier',25).render("Overall turns taken: "+str(score+tries),True,(255,255,255))
-            screen.blit(turnc, (10,10))
-                
-                
+            
+            sout(inp,100,(WX/2,WY/2-50))
+            sout(prg+' '+pos,100,(WX/2,WY/2+50))
+            
+            overall(score+tries)
+            
             pg.display.flip()
-                
+            
             keys = pg.key.get_pressed()
             curt=pg.time.get_ticks()
             if keys[pg.K_0] and curt>(t0+DELAY):
@@ -250,58 +233,43 @@ for i in range(0,N):
             elif keys[pg.K_RETURN]:
                 p=True
         prg+=' '+pos
-            
-            
+        
+        
         pos=int(pos)
         pos=max(0,min(int(len(inp)),pos))
         tr=0
+        
         clear()
         if attempt=='-':
-                
             pos=max(pos,1)
             pos -= 1
-                
             inp,tr=det(inp, pos).split()
-                
         else:
-                
             inp,tr=ins(inp,attempt,pos).split()
-                
-        tr=int(tr)
             
-        tries+=tr      
+        tr=int(tr)
+        tries+=tr
+        
     
     clear()
-
-    rep=True
-    turnc=pg.font.SysFont('courier',25).render("Overall turns taken: "+str(score+tries),True,(255,255,255))
-    screen.blit(turnc, (10,10))
-    announce=font.render("Good Job!", True, (255,255,255))
-    announce_rect=announce.get_rect(center=(WX/2,WY/2))
-    screen.blit(announce, announce_rect)
+    
+    
+    
+    overall(score+tries)
+    sout("Good Job!", 100, (WX/2,WY/2))
     pg.display.flip()
-    while rep:
-        closeable()
-        keys = pg.key.get_pressed()
-        if keys[pg.K_SPACE]:
-            rep=False
+    
+    spacer()
     clear()
-    turnc=pg.font.SysFont('courier',25).render("Overall turns taken: "+str(score+tries),True,(255,255,255))
-    screen.blit(turnc, (10,10))
+    
+    
     pg.time.wait(200)
-    turnc=pg.font.SysFont('courier',25).render("Overall turns taken: "+str(score+tries),True,(255,255,255))
-    screen.blit(turnc, (10,10))
-    turns=font.render('You took '+str(tries)+' turns', True, (255,255,255))
-    turns_rect=turns.get_rect(center=(WX/2,WY/2))
-    screen.blit(turns, turns_rect)
+    
+    overall(score+tries)
+    sout('You took '+str(tries)+' turns', 100, (WX/2,WY/2))
     pg.display.flip()
-    rep=True
-    while rep:
-        closeable()
-        keys = pg.key.get_pressed()
-        if keys[pg.K_SPACE]:
-            rep=False
-   
+    spacer()
+    
     score+=tries
 
 clear()
@@ -309,30 +277,22 @@ clear()
 comp=pg.font.SysFont('courier', 150).render("GAME COMPLETE", True, (255,255,255))
 comp_rect=comp.get_rect(center=(WX/2,WY/2-150))
 screen.blit(comp,comp_rect)
+sout("GAME COMPLETE", 150, (WX/2,WY/2-150))
 pg.display.flip()
 pg.time.wait(500)
-scores=pg.font.SysFont('courier', 75).render('You took '+str(score)+' turns in total!', True, (255,255,255))
-scores_rect=scores.get_rect(center=(WX/2,WY/2))
-screen.blit(scores,scores_rect)
+sout('You took '+str(score)+' turns in total!', 75, (WX/2,WY/2))
 pg.display.flip()
 pg.time.wait(500)
-minn=pg.font.SysFont('courier', 75).render('The minimum possible was '+str(min_score)+'!', True, (255,255,255))
-minn_rect=minn.get_rect(center=(WX/2,WY/2+150))
-screen.blit(minn,minn_rect)
+sout('The minimum possible was '+str(min_score)+'!', 75, (WX/2,WY/2+150))
 pg.display.flip()
-rep=True
-while rep:
-    closeable()
-    keys = pg.key.get_pressed()
-    if keys[pg.K_SPACE]:
-        rep=False
-    
+
+spacer()
+
 clear()
 pg.time.wait(200)
 if score==min_score:
-    gg=pg.font.SysFont('courier', 200).render("Good Job!", True, (255,255,255))
-    gg_rect=gg.get_rect(center=(WX/2,WY/2))
-    screen.blit(gg,gg_rect)
+    sout("Good Job!", 200, (WX/2,WY/2))
     pg.display.flip()
-    pg.time.wait(10000)
+    spacer()
+pg.quit()
     
