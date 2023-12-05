@@ -9,3 +9,8 @@ type a single dash and a number separated by a space to remove the vowel at that
 eg. "- 1" when it is "efly" for "efly" to become "fly"
 
 enter to submit/continue
+
+
+currently working on: condensation and cleaning of code
+
+upcoming: actual gui with buttons and indicators
