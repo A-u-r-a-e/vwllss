@@ -236,13 +236,12 @@ for i in range(0,N):
         
         
         pos=int(pos)
-        pos=max(0,min(int(len(inp)),pos))
+        pos=max(1,min(int(len(inp)+1),pos))
         tr=0
         
         clear()
+        pos-=1
         if attempt=='-':
-            pos=max(pos,1)
-            pos -= 1
             inp,tr=det(inp, pos).split()
         else:
             inp,tr=ins(inp,attempt,pos).split()
