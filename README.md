@@ -1,8 +1,7 @@
 # vwllss
 chill word game inspire by "I Love Hue Too"
 
-command-line v tutorial:
-
+TUTORIAL
 to insert a vowel in the string so that it will be the xth character: 'vowel x'
 
 to remove a vowel at position x in the string: '- x'
