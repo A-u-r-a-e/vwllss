@@ -51,7 +51,7 @@ def ins(str, ch, pos): #insert character into string at position pos
     return(''.join(a)+' 1')
 
 def det(str, pos): #remove character as position pos in string str
-    
+    pos=min(pos,len(str)-1)
     ch=str[pos]
     
     if ch=='a' or ch=='e' or ch=='i' or ch=='o' or ch=='u':
@@ -79,14 +79,15 @@ def spacer(): #wait until space pressed
         if keys[pg.K_SPACE]:
             rep=False
 
-def overall(x): #display text
-    txtout=pg.font.SysFont('courier',25).render('Overall turns taken: '+str(x), True, (255,255,255))
-    screen.blit(txtout,(10,10))
+
 
 def sout(txt,size,loc): #display text
     txtout=pg.font.SysFont('courier', size).render(txt, True, (255,255,255))
     txtout_rect=txtout.get_rect(center=loc)
     screen.blit(txtout,txtout_rect)
+    
+def overall(x): #display text
+    sout('Overall turns taken: '+str(x), 40, (WX/2,30))
 #PYGAME EDITION
 
 
