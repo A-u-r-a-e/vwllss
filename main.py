@@ -2,7 +2,7 @@ import pygame as pg
 
 pg.init()
 
-WX=1280
+WX=1440
 WY=720
 DELAY=200
 screen =  pg.display.set_mode((WX,WY))
@@ -127,7 +127,10 @@ for i in range(0,N):
     
     inp=levels[i][0] #data that the user is editing
     correct=levels[i][1] #correct answer
-    sout("stage "+str(i+1),200,(WX/2,WY/2))
+    if i+1==N:
+        sout("FINAL STAGE",200,(WX/2,WY/2))
+    else:
+        sout("stage "+str(i+1),200,(WX/2,WY/2))
     pg.display.flip()
     pg.time.wait(1000)
     while not inp==correct:
