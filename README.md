@@ -1,6 +1,7 @@
 # vwllss
 chill word game inspire by "I Love Hue Too"
 
+
 TUTORIAL
 to insert a vowel in the string so that it will be the xth character: 'vowel x'
 
@@ -12,6 +13,4 @@ space to continue when there is text
 
 NOTICE: YOU CAN EDIT x BEFORE SUBMITTING, BUT YOU CANNOT EDIT THE VOWEL/-
 
-currently working on: condensation and cleaning of code
-
-upcoming: actual gui with buttons and indicators
+currently working on: ios version (this repo will probably be dead for a little bit)
